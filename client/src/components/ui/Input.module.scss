@@ -1,0 +1,13 @@
+.input {
+    border: none;
+    outline: none;
+    padding: 0.5rem;
+    color: var(--color-4);
+    background: none;
+    border-bottom: 2px solid var(--color-4);
+}
+
+.input::placeholder {
+    color: inherit;
+    font: inherit;
+}

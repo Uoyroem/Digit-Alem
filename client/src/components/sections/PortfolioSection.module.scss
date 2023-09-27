@@ -1,0 +1,49 @@
+
+.projects {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.project {
+    transition: transform linear 0.2s;
+    cursor: pointer;
+
+    &:hover {
+        transform: scale(105%);
+
+        .project__imgContainer {
+            filter: grayscale(0);
+        }
+
+        .project__name {
+            text-decoration: underline;
+        }
+    }
+
+    display: flex;
+    width: 22.5%;
+    flex-direction: column;
+    border-radius: 1rem;
+
+    height: 18rem;
+
+
+    &__imgContainer {
+        transition: filter linear 0.2s;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100%;
+        filter: grayscale(1);
+    }
+
+    &__name {
+
+        text-align: center;
+        color: white;
+        background-color: var(--color-2);
+        padding: 0.5em;
+        margin: 0;
+    }
+}

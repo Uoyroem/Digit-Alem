@@ -1,0 +1,53 @@
+.header {
+    background-color: var(--color-2);
+    padding: 1rem 0;
+    color: var(--color-4);
+
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.logo {
+    width: 6rem;
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+
+    &__item {
+        color: inherit;
+        text-decoration: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        &:hover {
+            &::after {
+                width: 110%;
+            }
+        }
+
+        &:has(+ &) {
+            margin-right: 2em;
+        }
+
+        &::after {
+            content: "";
+            display: block;
+            background-color: var(--color-4);
+            margin-top: 0.5rem;
+            width: 0;
+            height: 3px;
+
+            transition: width linear 0.125s;
+
+
+        }
+    }
+
+
+}
