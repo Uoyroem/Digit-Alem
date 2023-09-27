@@ -1,4 +1,3 @@
-
 .projects {
     display: flex;
     align-items: center;
@@ -12,8 +11,8 @@
     &:hover {
         transform: scale(105%);
 
-        .project__imgContainer {
-            filter: grayscale(0);
+        .project__img-container {
+            filter: grayscale(0) blur(0);
         }
 
         .project__name {
@@ -29,13 +28,13 @@
     height: 18rem;
 
 
-    &__imgContainer {
-        transition: filter linear 0.2s;
-        background-position: center;
-        background-repeat: no-repeat;
+    &__img-container {
+        transition: filter linear 0.125s;
+
         background-size: cover;
+        background-position: center;
         height: 100%;
-        filter: grayscale(1);
+        filter: grayscale(1.0) blur(3px);
     }
 
     &__name {

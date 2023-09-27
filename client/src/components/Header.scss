@@ -8,11 +8,13 @@
         justify-content: space-between;
         align-items: center;
     }
+
+    &__logo {
+        width: 6rem;
+    }
 }
 
-.logo {
-    width: 6rem;
-}
+
 
 .nav {
     display: flex;
@@ -36,11 +38,12 @@
         }
 
         &::after {
+            position: relative;
             content: "";
             display: block;
             background-color: var(--color-4);
-            margin-top: 0.5rem;
             width: 0;
+            top: 5px;
             height: 3px;
 
             transition: width linear 0.125s;

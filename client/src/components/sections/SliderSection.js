@@ -1,18 +1,47 @@
-import Section from "../Section";
+
+import { useEffect, useRef, useState } from "react";
+import "./SliderSection.scss";
+import IconButton from "../ui/IconButton";
+
+function SliderSection({ items }) {
+    const sliderItems = useRef();
+    const [current, setCurrent] = useState(0);
 
 
-function SliderSection() {
+
+    function next() {
+        setCurrent(current => {
+            current = (current + 1) % items.length;
+            sliderItems.current.children[current].scrollIntoView();
+            return current;
+        });
+    }
+
+    function previous() {
+
+    }
+
     return (
-        <Section id="slider-section">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur est odit rerum? Aspernatur
-            consequatur cupiditate deleniti dolorum excepturi ipsum iusto neque nobis similique sunt! Corporis cumque
-            doloremque ea libero, perspiciatis quas. Accusantium adipisci animi asperiores beatae corporis dolorem
-            ducimus earum, eius enim et ipsa laudantium possimus praesentium quae quam qui quisquam repellat sapiente,
-            totam, voluptatum. Accusantium consequuntur cum deserunt dignissimos distinctio earum est expedita, iusto
-            nam nihil nostrum nulla perspiciatis quam qui quidem quod reiciendis rerum saepe sapiente voluptatem.
-            Aliquid architecto asperiores aspernatur, consectetur cumque dignissimos ducimus eum facilis fugit, hic
-            illum labore molestias nam nihil quo sed sint voluptas.
-        </Section>
+        <section className="slider-section" id="slider-section">
+            <div className="slider__buttons">
+                <IconButton onClick={previous}>keyboard_arrow_left</IconButton>
+                <IconButton onClick={next}>keyboard_arrow_right</IconButton>
+            </div>
+            <div className="slider">
+
+                <div ref={sliderItems} className="slider__items">
+                    {items.map(item => (
+                        <div className="slider__item">
+                            <div className="slider__content">
+
+                            </div>
+                            <div className="slider__img" style={{ backgroundImage: `url(${item})` }} />
+                        </div>
+                    ))}
+                </div>
+
+            </div>
+        </section>
     );
 }
 

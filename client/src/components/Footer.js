@@ -1,15 +1,14 @@
-import styles from "./Footer.module.scss";
+import "./Footer.scss";
 import ContactUs from "./ContactUs";
 import Section from "./Section";
 
 
 function Footer() {
     return (
-        <footer className={styles.footer}>
+        <footer className="footer">
             <Section>
-                <ContactUs/>
+                <ContactUs />
             </Section>
-
         </footer>
     );
 }

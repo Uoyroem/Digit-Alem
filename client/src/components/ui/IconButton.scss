@@ -1,0 +1,10 @@
+.icon-button {
+    border: none;
+    background: none;
+    transition: color linear 0.2s;
+    color: var(--color-4);
+}
+
+.icon-button:hover {
+    color: var(--color-2);
+}
