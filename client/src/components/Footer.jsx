@@ -1,14 +1,13 @@
 import "./Footer.scss";
 import ContactUs from "./ContactUs";
-import Section from "./Section";
-
+import Container from "./Container";
 
 function Footer() {
     return (
         <footer className="footer">
-            <Section>
+            <Container>
                 <ContactUs />
-            </Section>
+            </Container>
         </footer>
     );
 }

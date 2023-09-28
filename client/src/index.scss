@@ -13,3 +13,14 @@ html {
     font-family: 'Inter', sans-serif;
     color: var(--color-1)
 }
+
+.section {
+    &__header {
+        text-align: center;
+        color: var(--color-3)
+    }
+}
+
+.material-icons {
+    user-select: none;
+}

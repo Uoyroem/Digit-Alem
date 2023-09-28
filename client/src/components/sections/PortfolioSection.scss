@@ -12,7 +12,7 @@
         transform: scale(105%);
 
         .project__img-container {
-            filter: grayscale(0) blur(0);
+            filter: grayscale(0);
         }
 
         .project__name {
@@ -34,7 +34,7 @@
         background-size: cover;
         background-position: center;
         height: 100%;
-        filter: grayscale(1.0) blur(3px);
+        filter: grayscale(1.0);
     }
 
     &__name {
