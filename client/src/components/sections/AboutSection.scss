@@ -9,6 +9,7 @@
         align-items: center;
 
         &-text {
+            width: 60%;
             text-align: justify;
             margin: 0 4rem 0 0;
         }
@@ -29,6 +30,10 @@
             &-icon {
                 margin-right: 1rem;
                 color: var(--color-3);
+            }
+
+            &-list {
+                width: 40%;
             }
         }
     }

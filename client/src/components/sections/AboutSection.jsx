@@ -12,7 +12,7 @@ function AboutSection() {
 
                     <div className="about-section__content">
                         <p className="about-section__content-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veritatis ipsa expedita, recusandae fugit sunt laudantium eius cum saepe exercitationem velit neque possimus est! Odio assumenda ducimus consectetur rerum molestias similique. Corporis qui dolore voluptatum odit voluptas explicabo libero impedit a.</p>
-                        <div>
+                        <div className="about-section__content-info-list">
                             <div className="about-section__content-info">
                                 <span className="material-icons about-section__content-info-icon">cloud</span>
                                 <div>
