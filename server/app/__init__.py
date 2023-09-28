@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 
-from .settings import settings
-
+from . import api
+from .config import settings
 
 app = FastAPI(title=settings.title, version=settings.version)

@@ -7,18 +7,15 @@
     --color-3: #002E66;
     --color-4: #FEFEFE;
     --container-padding: 2rem;
+    --border-radius: 4px;
+    --border: 2px solid var(--color-3);
+    --box-shadow: 1px 4px 8px var(--color-1);
 }
 
 html {
+    scroll-behavior: smooth;
     font-family: 'Inter', sans-serif;
     color: var(--color-1)
-}
-
-.section {
-    &__header {
-        text-align: center;
-        color: var(--color-3)
-    }
 }
 
 .material-icons {

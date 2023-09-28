@@ -3,12 +3,13 @@ import Container from "./Container";
 import logo from "../assets/logo.png";
 
 
-function Header({ className, ...props }) {
+function Header({className, ...props}) {
+
     return (
         <header {...props} className={"header " + (className || "")}>
             <Container>
                 <div className="header__inner">
-                    <img className="header__logo" src={logo} alt="" />
+                    <img className="header__logo" src={logo} alt=""/>
                     <nav className="nav">
                         <a href="#about-section" className="nav__item">О компаний</a>
                         <a href="#news-section" className="nav__item">Новости</a>

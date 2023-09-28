@@ -1,5 +1,5 @@
 fastapi[all]
 sqlalchemy
 alembic
-psycopg
+psycopg[binary]
 pydantic_settings
