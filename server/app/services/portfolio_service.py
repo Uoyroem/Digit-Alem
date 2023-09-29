@@ -6,6 +6,7 @@ from slugify import slugify
 from fastapi import UploadFile, Request
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import IntegrityError
 
 from . import media_files_service, exceptions
 
@@ -22,19 +23,27 @@ async def create_portfolio(
     title: str,
     markdown_description: UploadFile,
     image: UploadFile,
-) -> None:
+) -> models.Portfolio:
     markdown_description_filename = await media_files_service.upload(
         request, markdown_description, {".md"}
     )
     image_filename = await media_files_service.upload(request, image, {".jpg", ".png"})
+    slug = slugify(title)
     portfolio = models.Portfolio(
-        slug=slugify(title),
+        slug=slug,
         title=title,
+        html_description_url=str(request.url_for("get_description_as_html", slug=slug)),
+        image_url=str(request.url_for("get_image", slug=slug)),
         markdown_description_filename=markdown_description_filename,
         image_filename=image_filename,
     )
+
     session.add(portfolio)
-    await session.commit()
+    try:
+        await session.commit()
+    except IntegrityError:
+        raise exceptions.PortfolioExistsError()
+    return portfolio
 
 
 async def get_description_as_html(session: AsyncSession, slug: str) -> str:
@@ -42,7 +51,7 @@ async def get_description_as_html(session: AsyncSession, slug: str) -> str:
         select(models.Portfolio).where(models.Portfolio.slug == slug)
     )
     if portfolio is None:
-        raise exceptions.PortfolioNotFound
+        raise exceptions.PortfolioNotFoundError
     path = await media_files_service.get_media_file_path(
         portfolio.markdown_description_filename
     )
@@ -56,5 +65,5 @@ async def get_image_filename(session: AsyncSession, slug: str) -> str:
         select(models.Portfolio).where(models.Portfolio.slug == slug)
     )
     if portfolio is None:
-        raise exceptions.PortfolioNotFound
+        raise exceptions.PortfolioNotFoundError
     return portfolio.image_filename

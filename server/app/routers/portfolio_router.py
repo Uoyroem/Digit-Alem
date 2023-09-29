@@ -26,20 +26,19 @@ async def create_portfolio(
         await services.portfolio_service.create_portfolio(
             session, request, title, markdown_description, image
         )
-    except services.exceptions.UnsupportedExtension:
+    except services.exceptions.UnsupportedExtensionError:
         raise HTTPException(
             status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "The file type must be markdown"
         )
+    except services.exceptions.PortfolioExistsError:
+        raise HTTPException(status.HTTP_409_CONFLICT)
 
 
 @router.get("/{slug}/html", response_class=HTMLResponse)
 async def get_description_as_html(session: dependecies.Session, slug: str):
     try:
         return await services.portfolio_service.get_description_as_html(session, slug)
-    except (
-        services.exceptions.PortfolioNotFound,
-        services.exceptions.MediaFileNotFound,
-    ):
+    except services.exceptions.NotFoundError:
         raise HTTPException(status.HTTP_404_NOT_FOUND)
 
 
@@ -49,8 +48,5 @@ async def get_image(session: dependecies.Session, slug: str) -> Any:
         return await services.media_files_service.get_media_file_path(
             await services.portfolio_service.get_image_filename(session, slug)
         )
-    except (
-        services.exceptions.PortfolioNotFound,
-        services.exceptions.MediaFileNotFound,
-    ):
+    except services.exceptions.NotFoundError:
         raise HTTPException(status.HTTP_404_NOT_FOUND)

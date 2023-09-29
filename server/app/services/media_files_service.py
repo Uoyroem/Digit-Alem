@@ -17,7 +17,7 @@ async def upload(
 ) -> str:
     extension = file.filename and pathlib.Path(file.filename).suffix
     if supported_extensions and extension not in supported_extensions:
-        raise exceptions.UnsupportedExtension()
+        raise exceptions.UnsupportedExtensionError()
 
     filename = str(uuid.uuid4()) + (extension or "")
     file_path = config.settings.media_path.resolve() / filename
@@ -31,5 +31,5 @@ async def upload(
 async def get_media_file_path(media_file_path: str) -> pathlib.Path:
     file_path = config.settings.media_path / media_file_path
     if not file_path.exists():
-        raise exceptions.MediaFileNotFound
+        raise exceptions.MediaFileNotFoundError
     return file_path

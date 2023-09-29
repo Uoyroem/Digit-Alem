@@ -13,5 +13,7 @@ class Portfolio(Base):
     id: Mapped[int] = mapped_column(autoincrement=True, primary_key=True)
     slug: Mapped[str] = mapped_column(String(30), primary_key=True, unique=True)
     title: Mapped[str]
+    html_description_url: Mapped[str]
+    image_url: Mapped[str]
     markdown_description_filename: Mapped[str]
     image_filename: Mapped[str]

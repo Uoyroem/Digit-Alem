@@ -10,13 +10,21 @@ class MediaFilesServiceError(ServiceError):
     pass
 
 
-class UnsupportedExtension(MediaFilesServiceError):
+class UnsupportedExtensionError(MediaFilesServiceError):
     pass
 
 
-class PortfolioNotFound(PortfolioServiceError):
+class NotFoundError(ServiceError):
     pass
 
 
-class MediaFileNotFound(MediaFilesServiceError):
+class PortfolioNotFoundError(NotFoundError, PortfolioServiceError):
+    pass
+
+
+class PortfolioExistsError(PortfolioServiceError):
+    pass
+
+
+class MediaFileNotFoundError(NotFoundError, MediaFilesServiceError):
     pass

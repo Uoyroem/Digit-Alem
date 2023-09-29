@@ -12,5 +12,5 @@ router = APIRouter()
 async def get_media_file(media_file_path: str) -> Any:
     try:
         return await services.media_files_service.get_media_file_path(media_file_path)
-    except services.exceptions.MediaFileNotFound:
+    except services.exceptions.MediaFileNotFoundError:
         raise HTTPException(status.HTTP_404_NOT_FOUND)

@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, computed_field
 from pydantic.alias_generators import to_camel
 
 
@@ -10,5 +10,9 @@ class CamelModel(BaseModel):
 
 class Project(CamelModel):
     id: int
+
+    html_description_url: str
+    image_url: str
+
     slug: str
     title: str
