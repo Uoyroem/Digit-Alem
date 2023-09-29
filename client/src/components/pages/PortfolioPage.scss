@@ -1,0 +1,13 @@
+.portfolio-page {
+    &__content {
+        display: flex;
+
+        &-aside {
+            width: 40%;
+        }
+
+        &-content {
+            width: 60%;
+        }
+    }
+}

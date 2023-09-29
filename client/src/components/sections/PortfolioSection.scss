@@ -1,25 +1,26 @@
-.projects {
+.portfolios {
     display: flex;
     align-items: center;
     justify-content: space-between;
 }
 
-.project {
+.portfolio {
     transition: transform linear 0.2s;
     cursor: pointer;
 
     &:hover {
         transform: scale(105%);
 
-        .project__img-container {
+        .portfolio__img-container {
             filter: grayscale(0);
         }
 
-        .project__name {
+        .portfolio__name {
             text-decoration: underline;
         }
     }
 
+    text-decoration: none;
     display: flex;
     width: 22.5%;
     flex-direction: column;
@@ -37,7 +38,7 @@
         filter: grayscale(1.0);
     }
 
-    &__name {
+    &__title {
 
         text-align: center;
         color: white;

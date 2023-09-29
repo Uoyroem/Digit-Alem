@@ -1,17 +1,18 @@
 import React from "react";
 import "./PortfolioSection.scss";
-import {SectionWithHeader} from "./Section";
+import { SectionWithHeader } from "./Section";
+import { Link } from "react-router-dom";
 
 
-function PortfolioSection({projects}) {
+function PortfolioSection({ portfolios }) {
     return (
         <SectionWithHeader title="Наши проекты">
-            <div className="projects">
-                {projects.map(project => (
-                    <div className="project">
-                        <div className="project__img-container" style={{backgroundImage: `url(${project.imageUrl})`}}/>
-                        <h3 className="project__name">{project.name}</h3>
-                    </div>
+            <div className="portfolios">
+                {portfolios.map(portfolio => (
+                    <Link to={`portfolios/${portfolio.slug}`} key={portfolio.id} className="portfolio">
+                        <div className="portfolio__img-container" style={{ backgroundImage: `url(${portfolio.imageUrl})` }} />
+                        <h3 className="portfolio__title">{portfolio.title}</h3>
+                    </Link>
                 ))}
             </div>
         </SectionWithHeader>

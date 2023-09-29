@@ -1,6 +1,6 @@
 import { api } from ".";
 
 
-export async function get_portfolios() {
-    api.get("/portfolios")
+export async function getPortfolios() {
+    return (await api.get("/portfolios")).data;
 }
