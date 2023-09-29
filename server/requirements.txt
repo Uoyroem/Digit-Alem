@@ -3,3 +3,5 @@ sqlalchemy
 alembic
 psycopg[binary]
 pydantic_settings
+python-slugify
+Markdown
