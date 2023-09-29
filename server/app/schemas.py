@@ -6,3 +6,9 @@ class CamelModel(BaseModel):
     class Config:
         alias_generator = to_camel
         populate_by_name = True
+
+
+class Project(CamelModel):
+    id: int
+    slug: str
+    title: str
