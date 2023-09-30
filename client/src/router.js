@@ -3,6 +3,7 @@ import IndexPage from "./components/pages/IndexPage";
 import App from "./App";
 import PortfoliosPage from "./components/pages/PortfoliosPage";
 import PortfolioDetailPage from "./components/pages/PortfolioDetailPage";
+import PortfolioListPage from "./components/pages/PortfolioListPage";
 
 
 const router = createBrowserRouter([
@@ -16,16 +17,15 @@ const router = createBrowserRouter([
                 breadcrumb: "Главная"
             },
             {
-                path: "portfolios",
+                path: "portfolios/",
                 element: <PortfoliosPage/>,
                 children: [
                     {
                         path: "/",
-                        breadcrumb: "Портфолио",
-
+                        element: <PortfolioListPage/>
                     },
                     {
-                        path: "/:portfolioSlug",
+                        path: ":portfolioSlug",
                         element: <PortfolioDetailPage/>
                     }
                 ]
