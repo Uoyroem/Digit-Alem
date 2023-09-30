@@ -1,26 +1,30 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import "./PortfolioSection.scss";
-import { SectionWithHeader } from "./Section";
-import { Link } from "react-router-dom";
-import { getPortfolios } from "../../api";
-import { useRequest } from "../../hooks";
+import {SectionWithHeader} from "./Section";
+import {Link} from "react-router-dom";
+import {getPortfolios} from "../../api";
+import {useRequest} from "../../hooks";
 
 function PortfolioSection() {
-    const { sendRequest, loaded, error, data: portfolios } = useRequest(getPortfolios);
+    function onLoaded(portfolios) {
+        return portfolios.map(portfolio => (
+            <Link to={`portfolios/${portfolio.slug}`} key={portfolio.id} className="portfolio">
+                <div className="portfolio__img-container" style={{backgroundImage: `url(${portfolio.imageUrl})`}}/>
+                <h3 className="portfolio__title">{portfolio.title}</h3>
+            </Link>
+        ));
+    }
+
+    const {sendRequest, OnResponse} = useRequest(getPortfolios, onLoaded);
 
     useEffect(() => {
         sendRequest();
     }, []);
 
     return (
-        <SectionWithHeader title="Наши проекты">
+        <SectionWithHeader title="Наш портфолио">
             <div className="portfolios">
-                {error != null ? <div>{error}</div> : loaded ? portfolios.map(portfolio => (
-                    <Link to={`portfolios/${portfolio.slug}`} key={portfolio.id} className="portfolio">
-                        <div className="portfolio__img-container" style={{ backgroundImage: `url(${portfolio.imageUrl})` }} />
-                        <h3 className="portfolio__title">{portfolio.title}</h3>
-                    </Link>
-                )) : <div>Загрузка...</div>}
+                <OnResponse/>
             </div>
         </SectionWithHeader>
     );
