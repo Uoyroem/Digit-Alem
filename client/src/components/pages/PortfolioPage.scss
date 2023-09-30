@@ -3,11 +3,47 @@
         display: flex;
 
         &-aside {
-            width: 40%;
+            width: 25%;
+
+            &-title {
+                text-align: center;
+            }
+
+            &-portfolio-list {
+                list-style: outside;
+
+            }
         }
 
-        &-content {
-            width: 60%;
+        &-portfolio {
+            width: 75%;
+
+            &-image-and-title {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: cover;
+                height: 12rem;
+                color: var(--color-4);
+            }
+
+        }
+    }
+
+    &__breadcrumbs {
+        height: 6rem;
+    }
+}
+
+.portfolio-link-item {
+    &__link {
+        text-decoration: none;
+        color: inherit;
+
+        &:hover {
+            text-decoration: underline;
         }
     }
 }

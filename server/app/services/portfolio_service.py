@@ -46,12 +46,17 @@ async def create_portfolio(
     return portfolio
 
 
-async def get_description_as_html(session: AsyncSession, slug: str) -> str:
+async def get_portfolio(session: AsyncSession, slug: str) -> models.Portfolio:
     portfolio = await session.scalar(
         select(models.Portfolio).where(models.Portfolio.slug == slug)
     )
     if portfolio is None:
         raise exceptions.PortfolioNotFoundError
+    return portfolio
+
+
+async def get_description_as_html(session: AsyncSession, slug: str) -> str:
+    portfolio = await get_portfolio(session, slug)
     path = await media_files_service.get_media_file_path(
         portfolio.markdown_description_filename
     )
@@ -61,9 +66,5 @@ async def get_description_as_html(session: AsyncSession, slug: str) -> str:
 
 
 async def get_image_filename(session: AsyncSession, slug: str) -> str:
-    portfolio = await session.scalar(
-        select(models.Portfolio).where(models.Portfolio.slug == slug)
-    )
-    if portfolio is None:
-        raise exceptions.PortfolioNotFoundError
+    portfolio = await get_portfolio(session, slug)
     return portfolio.image_filename

@@ -8,7 +8,7 @@ class CamelModel(BaseModel):
         populate_by_name = True
 
 
-class Project(CamelModel):
+class Portfolio(CamelModel):
     id: int
 
     html_description_url: str

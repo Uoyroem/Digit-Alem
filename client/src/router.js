@@ -16,11 +16,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/portfolios/:portfolioSlug",
-                element: <PortfolioPage />,
-                async loader() {
-                    const portfolios = await getPortfolios();
-                    return { portfolios }
-                }
+                element: <PortfolioPage />
             }
         ]
     },

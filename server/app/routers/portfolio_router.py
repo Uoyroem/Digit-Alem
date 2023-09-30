@@ -9,7 +9,7 @@ from .. import schemas, dependecies, services
 router = APIRouter(prefix="/portfolios")
 
 
-@router.get("/", response_model=list[schemas.Project])
+@router.get("/", response_model=list[schemas.Portfolio])
 async def get_portfolios(session: dependecies.Session) -> Any:
     return await services.portfolio_service.get_portfolios(session)
 
@@ -34,19 +34,18 @@ async def create_portfolio(
         raise HTTPException(status.HTTP_409_CONFLICT)
 
 
+@router.get("/{slug}", response_model=schemas.Portfolio)
+async def get_portfolio(session: dependecies.Session, slug: str) -> Any:
+    return await services.portfolio_service.get_portfolio(session, slug)
+
+
 @router.get("/{slug}/html", response_class=HTMLResponse)
 async def get_description_as_html(session: dependecies.Session, slug: str):
-    try:
-        return await services.portfolio_service.get_description_as_html(session, slug)
-    except services.exceptions.NotFoundError:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    return await services.portfolio_service.get_description_as_html(session, slug)
 
 
 @router.get("/{slug}/image", response_class=FileResponse)
 async def get_image(session: dependecies.Session, slug: str) -> Any:
-    try:
-        return await services.media_files_service.get_media_file_path(
-            await services.portfolio_service.get_image_filename(session, slug)
-        )
-    except services.exceptions.NotFoundError:
-        raise HTTPException(status.HTTP_404_NOT_FOUND)
+    return await services.media_files_service.get_media_file_path(
+        await services.portfolio_service.get_image_filename(session, slug)
+    )

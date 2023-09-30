@@ -3,15 +3,10 @@ import AboutSection from "../sections/AboutSection";
 import NewsSection from "../sections/NewsSection";
 import PortfolioSection from "../sections/PortfolioSection";
 import { useEffect, useState } from "react";
-import { getPortfolios } from "../../api";
 
 
 function IndexPage() {
-    const [portfolios, setPortfolios] = useState([]);
 
-    useEffect(() => {
-        getPortfolios().then(setPortfolios);
-    }, []);
 
     const [sliderItems, setSliderItems] = useState([
         {
@@ -40,7 +35,7 @@ function IndexPage() {
             <SliderSection items={sliderItems} />
             <AboutSection />
             <NewsSection />
-            <PortfolioSection portfolios={portfolios} />
+            <PortfolioSection />
         </>
     );
 }

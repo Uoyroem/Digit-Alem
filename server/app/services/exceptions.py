@@ -15,11 +15,15 @@ class UnsupportedExtensionError(MediaFilesServiceError):
 
 
 class NotFoundError(ServiceError):
-    pass
+    def __init__(self, what_not_found: str | None = None) -> None:
+        super().__init__(
+            "Not Found" + (" - " + what_not_found if what_not_found else "")
+        )
 
 
 class PortfolioNotFoundError(NotFoundError, PortfolioServiceError):
-    pass
+    def __init__(self) -> None:
+        super().__init__("Portfolio")
 
 
 class PortfolioExistsError(PortfolioServiceError):
@@ -27,4 +31,5 @@ class PortfolioExistsError(PortfolioServiceError):
 
 
 class MediaFileNotFoundError(NotFoundError, MediaFilesServiceError):
-    pass
+    def __init__(self) -> None:
+        super().__init__("Media File")
