@@ -2,15 +2,17 @@ import {useState} from "react";
 import spinner from "../assets/spinner.svg";
 import "./OnResponse.scss";
 
-export function useRequest(requestFunction, onLoaded) {
+
+export function useRequest(request, ...components) {
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
     const [data, setData] = useState(null);
+    const transformedComponents = {};
 
     function sendRequest() {
         setLoaded(false);
         setError(false);
-        requestFunction(...arguments)
+        request(...arguments)
             .then(response => {
                 setData(response.data);
                 setLoaded(true);
@@ -21,16 +23,16 @@ export function useRequest(requestFunction, onLoaded) {
             });
     }
 
-    function OnResponse() {
-        return (
+    for (const component of components) {
+        transformedComponents[`Loaded` + component.name] = () => (
             <>
                 {error ? <div className="error">Произошло ошибка при загрузке данных см.
-                    консоль</div> : loaded ? <>{onLoaded(data)}</> :
+                    консоль</div> : loaded ? <>{component(data)}</> :
                     <img className="loading" src={spinner} alt=""/>}
             </>
         );
     }
 
 
-    return {sendRequest, OnResponse};
+    return {sendRequest, ...transformedComponents};
 }

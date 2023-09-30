@@ -1,14 +1,14 @@
-.portfolio-page {
+.portfolios-page {
+    &__breadcrumps {
+        height: 8rem;
+    }
+
     &__content {
         display: flex;
 
         &-aside {
             width: 25%;
-            margin-right: 1rem;
-
-            &-title {
-                text-align: center;
-            }
+            margin-right: 2rem;
 
             &-portfolio-list {
                 list-style: none;
@@ -35,26 +35,11 @@
 
                 }
             }
+
         }
 
         &-portfolio {
             width: 75%;
-
-            &-image-and-title {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                background-repeat: no-repeat;
-                background-position: center;
-                background-size: cover;
-                height: 12rem;
-                color: var(--color-4);
-            }
-
         }
-    }
-
-    &__breadcrumbs {
-        height: 6rem;
     }
 }

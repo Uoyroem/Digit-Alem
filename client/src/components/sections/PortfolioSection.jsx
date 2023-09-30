@@ -6,7 +6,7 @@ import {getPortfolios} from "../../api";
 import {useRequest} from "../../hooks";
 
 function PortfolioSection() {
-    function onLoaded(portfolios) {
+    function Portfolios(portfolios) {
         return portfolios.map(portfolio => (
             <Link to={`portfolios/${portfolio.slug}`} key={portfolio.id} className="portfolio">
                 <div className="portfolio__img-container" style={{backgroundImage: `url(${portfolio.imageUrl})`}}/>
@@ -15,7 +15,7 @@ function PortfolioSection() {
         ));
     }
 
-    const {sendRequest, OnResponse} = useRequest(getPortfolios, onLoaded);
+    const {sendRequest, LoadedPortfolios} = useRequest(getPortfolios, Portfolios);
 
     useEffect(() => {
         sendRequest();
@@ -24,7 +24,7 @@ function PortfolioSection() {
     return (
         <SectionWithHeader title="Наш портфолио">
             <div className="portfolios">
-                <OnResponse/>
+                <LoadedPortfolios/>
             </div>
         </SectionWithHeader>
     );

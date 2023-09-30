@@ -1,0 +1,16 @@
+.portfolio-detail-page {
+    &__portfolio {
+        width: 75%;
+
+        &-image-and-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: cover;
+            height: 20rem;
+            color: var(--color-4);
+        }
+    }
+}

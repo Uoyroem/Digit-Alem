@@ -1,22 +1,34 @@
-import { createBrowserRouter } from "react-router-dom";
+import {createBrowserRouter} from "react-router-dom";
 import IndexPage from "./components/pages/IndexPage";
-import PortfolioPage from "./components/pages/PortfolioPage";
 import App from "./App";
-import { getPortfolios } from "./api";
+import PortfoliosPage from "./components/pages/PortfoliosPage";
+import PortfolioDetailPage from "./components/pages/PortfolioDetailPage";
 
 
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <App />,
+        element: <App/>,
         children: [
             {
                 path: "/",
-                element: <IndexPage />
+                element: <IndexPage/>,
+                breadcrumb: "Главная"
             },
             {
-                path: "/portfolios/:portfolioSlug",
-                element: <PortfolioPage />
+                path: "portfolios",
+                element: <PortfoliosPage/>,
+                children: [
+                    {
+                        path: "/",
+                        breadcrumb: "Портфолио",
+
+                    },
+                    {
+                        path: "/:portfolioSlug",
+                        element: <PortfolioDetailPage/>
+                    }
+                ]
             }
         ]
     },
