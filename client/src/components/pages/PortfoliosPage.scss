@@ -1,6 +1,26 @@
 .portfolios-page {
     &__breadcrumps {
-        height: 8rem;
+        display: flex;
+        align-items: center;
+        height: 4rem;
+        user-select: none;
+
+        &-item {
+            text-decoration: none;
+            color: inherit;
+
+            &.link:hover {
+                text-decoration: underline;
+            }
+
+            &.last {
+                font-weight: bold;
+            }
+        }
+
+        &-divider {
+            margin: 0 1rem;
+        }
     }
 
     &__content {
@@ -29,7 +49,8 @@
                         color: var(--color-4);
                     }
 
-                    &_active, &:hover {
+
+                    &:not(&_active):hover {
                         text-decoration: underline;
                     }
 

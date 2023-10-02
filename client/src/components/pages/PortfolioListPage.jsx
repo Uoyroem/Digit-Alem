@@ -1,10 +1,10 @@
-import React, {useEffect} from "react";
-import {useRequest} from "../../hooks";
-import {getPortfolios} from "../../api";
+import React, { useEffect } from "react";
+import { useRequest } from "../../hooks";
+import { getPortfolios } from "../../api";
 
 
 function PortfolioListPage() {
-    const {sendRequest, LoadedPortfolioList} = useRequest(getPortfolios, PortfolioList);
+    const { sendRequest, LoadedPortfolioList } = useRequest(getPortfolios, PortfolioList);
 
     function PortfolioList(portfoilos) {
         return (
@@ -20,7 +20,8 @@ function PortfolioListPage() {
 
     return (
         <div>
-            <LoadedPortfolioList/>
+            <h1>ЙОУ</h1>
+            <LoadedPortfolioList />
         </div>
     );
 }

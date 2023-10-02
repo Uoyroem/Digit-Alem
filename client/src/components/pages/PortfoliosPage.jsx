@@ -1,16 +1,18 @@
-import React, {useEffect} from "react";
-import {useRequest} from "../../hooks";
-import {getPortfolios} from "../../api";
-import {NavLink, Outlet} from "react-router-dom";
+import React, { useEffect } from "react";
+import { useRequest } from "../../hooks";
+import { getPortfolios } from "../../api";
+import { NavLink, Outlet } from "react-router-dom";
 import Container from "../Container";
 import "./PortfoliosPage.scss";
-
+import useBreadcrumbs from "use-react-router-breadcrumbs"
+import router from "../../router";
 
 function PortfoliosPage() {
     const {
         sendRequest,
         LoadedPortfolioLinks
     } = useRequest(getPortfolios, PortfolioLinks);
+    const breadcrumbs = useBreadcrumbs(router.routes);
 
     useEffect(() => {
         sendRequest();
@@ -23,7 +25,7 @@ function PortfoliosPage() {
                     <NavLink
                         key={portfolio.id}
                         to={`/portfolios/${portfolio.slug}`}
-                        className={({isActive}) => {
+                        className={({ isActive }) => {
                             return ("portfolios-page__content-aside-portfolio-list-item " +
                                 (isActive ? "portfolios-page__content-aside-portfolio-list-item_active" : ""));
                         }}
@@ -38,14 +40,16 @@ function PortfoliosPage() {
     return (
         <div className="portfolios-page">
             <Container>
-                <div className="portfolios-page__breadcrumps"></div>
-                <hr/>
+                <div className="portfolios-page__breadcrumps">
+                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <>{index !== breadcrumbs.length - 1 ? <><NavLink to={match} className="portfolios-page__breadcrumps-item link" key={key}>{breadcrumb}</NavLink><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last" key={key}>{breadcrumb}</span>}</>)}
+                </div>
+                <hr />
                 <div className="portfolios-page__content">
                     <aside className="portfolios-page__content-aside">
-                        <LoadedPortfolioLinks/>
+                        <LoadedPortfolioLinks />
                     </aside>
                     <div className="portfolios-page__content-portfolio">
-                        <Outlet/>
+                        <Outlet />
                     </div>
                 </div>
             </Container>
