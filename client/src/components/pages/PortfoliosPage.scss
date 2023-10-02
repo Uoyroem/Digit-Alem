@@ -6,12 +6,6 @@
         user-select: none;
 
         &-item {
-            text-decoration: none;
-            color: inherit;
-
-            &.link:hover {
-                text-decoration: underline;
-            }
 
             &.last {
                 font-weight: bold;
@@ -45,8 +39,8 @@
                     }
 
                     &_active {
-                        background-color: var(--color-2);
-                        color: var(--color-4);
+                        color: var(--color-2);
+                        font-weight: bold;
                     }
 
 

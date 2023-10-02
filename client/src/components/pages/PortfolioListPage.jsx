@@ -1,27 +1,11 @@
-import React, { useEffect } from "react";
-import { useRequest } from "../../hooks";
-import { getPortfolios } from "../../api";
+import React from "react";
 
 
 function PortfolioListPage() {
-    const { sendRequest, LoadedPortfolioList } = useRequest(getPortfolios, PortfolioList);
-
-    function PortfolioList(portfoilos) {
-        return (
-            <>
-                {portfoilos.map(portfoilo => (<div key={portfoilo.id}>{portfoilo.title}</div>))}
-            </>
-        );
-    }
-
-    useEffect(() => {
-        sendRequest();
-    }, []);
-
     return (
         <div>
-            <h1>ЙОУ</h1>
-            <LoadedPortfolioList />
+            <p>Стартуете новый бизнес? Выходите в интернет пространство для увеличения заработка? Столкнулись со сложностями в управлении и росте компании?</p>
+            <p>Мы специализируемся на сложных процессах и точечных решениях для вашего бизнеса, создаем эффективные IT решения, успешно разрабатываем и внедряем их уже сегодня.</p>
         </div>
     );
 }

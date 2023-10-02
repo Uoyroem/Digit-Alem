@@ -6,6 +6,7 @@ import Container from "../Container";
 import "./PortfoliosPage.scss";
 import useBreadcrumbs from "use-react-router-breadcrumbs"
 import router from "../../router";
+import Link from "../ui/Link";
 
 function PortfoliosPage() {
     const {
@@ -41,7 +42,7 @@ function PortfoliosPage() {
         <div className="portfolios-page">
             <Container>
                 <div className="portfolios-page__breadcrumps">
-                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <>{index !== breadcrumbs.length - 1 ? <><NavLink to={match} className="portfolios-page__breadcrumps-item link" key={key}>{breadcrumb}</NavLink><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last" key={key}>{breadcrumb}</span>}</>)}
+                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <>{index !== breadcrumbs.length - 1 ? <><Link to={match} className="portfolios-page__breadcrumps-item" key={key}>{breadcrumb}</Link><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last" key={key}>{breadcrumb}</span>}</>)}
                 </div>
                 <hr />
                 <div className="portfolios-page__content">

@@ -1,27 +1,28 @@
-import {useParams} from "react-router-dom";
-import {getPortfolio} from "../../api";
-import {useRequest} from "../../hooks";
+import { useParams } from "react-router-dom";
+import { getPortfolio } from "../../api";
+import { useRequest } from "../../hooks";
 import "./PortfolioDetailPage.scss";
-import {useEffect} from "react";
+import { useEffect } from "react";
+import HTMLFromURL from "../HTMLFromURL";
 
 
 function PortfolioDetailPage() {
-    const {portfolioSlug} = useParams();
+    const { portfolioSlug } = useParams();
 
     function Portfolio(portfolio) {
         return (
             <div className="portfolio-detail-page__portfolio">
                 <div className="portfolio-detail-page__portfolio-image-and-title"
-                     style={{backgroundImage: `url(${portfolio.imageUrl})`}}>
+                    style={{ backgroundImage: `url(${portfolio.imageUrl})` }}>
                     <h1>{portfolio.title}</h1>
                 </div>
-                <iframe src={portfolio.htmlDescriptionUrl}></iframe>
+                <HTMLFromURL url={portfolio.htmlDescriptionUrl} />
             </div>
         );
     }
 
 
-    const {sendRequest, LoadedPortfolio} = useRequest(getPortfolio, Portfolio);
+    const { sendRequest, LoadedPortfolio } = useRequest(getPortfolio, Portfolio);
 
 
     useEffect(() => {
@@ -29,7 +30,7 @@ function PortfolioDetailPage() {
     }, [portfolioSlug]);
     return (
         <div className="portfolio-detail-page">
-            <LoadedPortfolio/>
+            <LoadedPortfolio />
         </div>
     );
 }
