@@ -90,7 +90,9 @@ async def create_project(
 
 async def get_portfolio(session: AsyncSession, slug: str) -> models.Portfolio:
     portfolio = await session.scalar(
-        select(models.Portfolio).where(models.Portfolio.slug == slug)
+        select(models.Portfolio)
+        .where(models.Portfolio.slug == slug)
+        .options(selectinload(models.Portfolio.projects))
     )
     if portfolio is None:
         raise exceptions.PortfolioNotFoundError

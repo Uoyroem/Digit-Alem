@@ -24,7 +24,7 @@ function PortfoliosPage() {
             <div className="portfolios-page__content-aside-portfolio-list">
                 {portfolios.map(portfolio => (
                     <NavLink
-                        key={portfolio.id}
+                        key={portfolio.slug}
                         to={`/portfolios/${portfolio.slug}`}
                         className={({ isActive }) => {
                             return ("portfolios-page__content-aside-portfolio-list-item " +
