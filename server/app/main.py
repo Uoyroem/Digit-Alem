@@ -15,6 +15,9 @@ app.add_exception_handler(
     services.exceptions.NotFoundError,
     services.exception_handlers.not_found_error_handler,
 )
+app.add_exception_handler(
+    services.exceptions.ExistsError, services.exception_handlers.exists_error_handler
+)
 
 app.add_middleware(
     CORSMiddleware,

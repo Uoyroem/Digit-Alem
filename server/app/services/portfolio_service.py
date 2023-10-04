@@ -5,8 +5,10 @@ import anyio
 from slugify import slugify
 from fastapi import UploadFile, Request
 from sqlalchemy import select
+from sqlalchemy.orm import selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.exc import IntegrityError
+from psycopg import errors
 
 from . import media_files_service, exceptions
 
@@ -14,7 +16,11 @@ from .. import models
 
 
 async def get_portfolios(session: AsyncSession) -> Sequence[models.Portfolio]:
-    return (await session.scalars(select(models.Portfolio))).all()
+    return (
+        await session.scalars(
+            select(models.Portfolio).options(selectinload(models.Portfolio.projects))
+        )
+    ).all()
 
 
 async def create_portfolio(
@@ -46,6 +52,42 @@ async def create_portfolio(
     return portfolio
 
 
+async def create_project(
+    session: AsyncSession,
+    request: Request,
+    portfolio_slug: str,
+    title: str,
+    markdown_description: UploadFile,
+) -> models.Project:
+    markdown_description_filename = await media_files_service.upload(
+        request, markdown_description, {".md"}
+    )
+
+    slug = slugify(title)
+    project = models.Project(
+        title=title,
+        slug=slug,
+        html_description_url=str(
+            request.url_for(
+                "get_project_description_as_html",
+                portfolio_slug=portfolio_slug,
+                slug=slug,
+            )
+        ),
+        portfolio_slug=portfolio_slug,
+        markdown_description_filename=markdown_description_filename,
+    )
+
+    session.add(project)
+    try:
+        await session.commit()
+    except IntegrityError as error:
+        if isinstance(error.orig, errors.ForeignKeyViolation):
+            raise exceptions.PortfolioNotFoundError
+        raise exceptions.ProjectExistsError
+    return project
+
+
 async def get_portfolio(session: AsyncSession, slug: str) -> models.Portfolio:
     portfolio = await session.scalar(
         select(models.Portfolio).where(models.Portfolio.slug == slug)
@@ -61,6 +103,23 @@ async def get_description_as_html(session: AsyncSession, slug: str) -> str:
         portfolio.markdown_description_filename
     )
 
+    async with await anyio.open_file(path) as file:
+        return markdown.markdown(await file.read())
+
+
+async def get_project_description_as_html(
+    session: AsyncSession, portfolio_slug: str, slug: str
+) -> str:
+    project = await session.scalar(
+        select(models.Project).where(
+            models.Project.portfolio_slug == portfolio_slug, models.Project.slug == slug
+        )
+    )
+    if project is None:
+        raise exceptions.ProjectNotFoundError
+    path = await media_files_service.get_media_file_path(
+        project.markdown_description_filename
+    )
     async with await anyio.open_file(path) as file:
         return markdown.markdown(await file.read())
 

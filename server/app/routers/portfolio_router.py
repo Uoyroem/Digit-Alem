@@ -30,8 +30,6 @@ async def create_portfolio(
         raise HTTPException(
             status.HTTP_415_UNSUPPORTED_MEDIA_TYPE, "The file type must be markdown"
         )
-    except services.exceptions.PortfolioExistsError:
-        raise HTTPException(status.HTTP_409_CONFLICT)
 
 
 @router.get("/{slug}", response_model=schemas.Portfolio)
@@ -39,7 +37,31 @@ async def get_portfolio(session: dependecies.Session, slug: str) -> Any:
     return await services.portfolio_service.get_portfolio(session, slug)
 
 
-@router.get("/{slug}/html", response_class=HTMLResponse)
+@router.post("/{portfolio_slug}/projects", status_code=status.HTTP_201_CREATED)
+async def create_project(
+    session: dependecies.Session,
+    request: Request,
+    portfolio_slug: str,
+    title: Annotated[str, Form()],
+    markdown_description: UploadFile,
+) -> Any:
+    await services.portfolio_service.create_project(
+        session, request, portfolio_slug, title, markdown_description
+    )
+
+
+@router.get(
+    "/{portfolio_slug}/projects/{slug}/description", response_class=HTMLResponse
+)
+async def get_project_description_as_html(
+    session: dependecies.Session, portfolio_slug: str, slug: str
+):
+    return await services.portfolio_service.get_project_description_as_html(
+        session, portfolio_slug, slug
+    )
+
+
+@router.get("/{slug}/description", response_class=HTMLResponse)
 async def get_description_as_html(session: dependecies.Session, slug: str):
     return await services.portfolio_service.get_description_as_html(session, slug)
 

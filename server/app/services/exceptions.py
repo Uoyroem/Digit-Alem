@@ -26,7 +26,19 @@ class PortfolioNotFoundError(NotFoundError, PortfolioServiceError):
         super().__init__("Portfolio")
 
 
-class PortfolioExistsError(PortfolioServiceError):
+class ExistsError(ServiceError):
+    pass
+
+
+class PortfolioExistsError(ExistsError, PortfolioServiceError):
+    pass
+
+
+class ProjectExistsError(ExistsError, PortfolioServiceError):
+    pass
+
+
+class ProjectNotFoundError(NotFoundError, PortfolioServiceError):
     pass
 
 

@@ -9,10 +9,18 @@ class CamelModel(BaseModel):
 
 
 class Portfolio(CamelModel):
-    id: int
-
     html_description_url: str
     image_url: str
 
     slug: str
     title: str
+    projects: list["Project"]
+
+
+class Project(CamelModel):
+    html_description_url: str
+    slug: str
+    title: str
+
+
+Portfolio.model_rebuild()
