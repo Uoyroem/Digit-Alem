@@ -8,3 +8,7 @@ export async function getPortfolios() {
 export async function getPortfolio(slug) {
     return await api.get(`/portfolios/${slug}`)
 }
+
+export async function getProject(portfolioSlug, slug) {
+    return await api.get(`/portfolios/${portfolioSlug}/projects/${slug}`)
+}

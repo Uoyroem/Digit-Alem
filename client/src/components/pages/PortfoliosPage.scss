@@ -1,3 +1,56 @@
+.portfolio-links {
+    list-style: none;
+
+    &__item {
+        display: block;
+        padding: 0.25rem;
+        text-decoration: none;
+        color: inherit;
+        border-radius: var(--border-radius);
+
+        &:has(+ &) {
+            margin-bottom: 0.5em;
+        }
+
+        &_active {
+            color: var(--color-2);
+            font-weight: bold;
+        }
+
+
+        &:not(&_active):hover {
+            text-decoration: underline;
+        }
+
+
+    }
+
+    .project-links {
+        list-style: none;
+        margin-top: 0.5rem;
+
+        &__item {
+            display: block;
+            padding: 0.25rem;
+
+            text-decoration: none;
+            color: inherit;
+            border-radius: var(--border-radius);
+
+            &_active {
+                color: var(--color-2);
+                font-weight: bold;
+            }
+
+
+            &:not(&_active):hover {
+                text-decoration: underline;
+            }
+        }
+
+    }
+}
+
 .portfolios-page {
     &__breadcrumps {
         display: flex;
@@ -23,34 +76,6 @@
         &-aside {
             width: 25%;
             margin-right: 2rem;
-
-            &-portfolio-list {
-                list-style: none;
-
-                &-item {
-                    display: block;
-                    padding: 1em;
-                    text-decoration: none;
-                    color: inherit;
-                    border-radius: var(--border-radius);
-
-                    &:has(+ &) {
-                        margin-bottom: 0.5em;
-                    }
-
-                    &_active {
-                        color: var(--color-2);
-                        font-weight: bold;
-                    }
-
-
-                    &:not(&_active):hover {
-                        text-decoration: underline;
-                    }
-
-                }
-            }
-
         }
 
         &-portfolio {

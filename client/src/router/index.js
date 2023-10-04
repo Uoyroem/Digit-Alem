@@ -4,7 +4,8 @@ import App from "../App";
 import PortfoliosPage from "../components/pages/PortfoliosPage";
 import PortfolioDetailPage from "../components/pages/PortfolioDetailPage";
 import PortfolioListPage from "../components/pages/PortfolioListPage";
-import { PortfolioBreadcrumb } from "./breadcrumps";
+import ProjectPage from "../components/pages/ProjectPage";
+import { PortfolioBreadcrumb, ProjectBreadcrumb } from "./breadcrumps";
 
 const router = createBrowserRouter([
     {
@@ -26,9 +27,21 @@ const router = createBrowserRouter([
                         breadcrumb: "Портфолио"
                     },
                     {
-                        path: ":portfolioSlug",
+                        path: ":portfolioSlug/",
                         element: <PortfolioDetailPage />,
-                        breadcrumb: PortfolioBreadcrumb
+                        breadcrumb: PortfolioBreadcrumb,
+
+                    },
+                    {
+                        path: ":portfolioSlug/projects/",
+                        breadcrumb: null,
+                        children: [
+                            {
+                                path: ":projectSlug",
+                                element: <ProjectPage />,
+                                breadcrumb: ProjectBreadcrumb
+                            }
+                        ]
                     }
                 ]
             }

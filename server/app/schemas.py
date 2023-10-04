@@ -21,6 +21,7 @@ class Project(CamelModel):
     html_description_url: str
     slug: str
     title: str
+    portfolio_slug: str
 
 
 Portfolio.model_rebuild()

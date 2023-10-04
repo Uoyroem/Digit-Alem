@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { getPortfolio } from "../api";
+import { getPortfolio, getProject } from "../api";
 import { useRequest } from "../hooks";
 
 export function PortfolioBreadcrumb({ match }) {
@@ -15,7 +15,21 @@ export function PortfolioBreadcrumb({ match }) {
         sendRequest(match.params.portfolioSlug);
     }, []);
 
-    return (
-        <LoadedPortfolio />
-    );
+    return <LoadedPortfolio />;
+}
+
+export function ProjectBreadcrumb({ match }) {
+    const { sendRequest, LoadedProject } = useRequest(getProject, Project);
+
+    useEffect(() => {
+        sendRequest(match.params.portfolioSlug, match.params.projectSlug);
+    }, []);
+
+    function Project(project) {
+        return (
+            <>{project.title}</>
+        )
+    }
+
+    return <LoadedProject />;
 }

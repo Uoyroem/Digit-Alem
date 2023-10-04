@@ -50,6 +50,13 @@ async def create_project(
     )
 
 
+@router.get("/{portfolio_slug}/projects/{slug}", response_model=schemas.Project)
+async def get_project(
+    session: dependecies.Session, portfolio_slug: str, slug: str
+) -> Any:
+    return await services.portfolio_service.get_project(session, portfolio_slug, slug)
+
+
 @router.get(
     "/{portfolio_slug}/projects/{slug}/description", response_class=HTMLResponse
 )

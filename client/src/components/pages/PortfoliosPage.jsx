@@ -8,6 +8,38 @@ import useBreadcrumbs from "use-react-router-breadcrumbs"
 import router from "../../router";
 import Link from "../ui/Link";
 
+function PortfolioLinks(portfolios) {
+    return (
+        <ul className="portfolio-links">
+            {portfolios.map(portfolio => (
+                <li>
+                    <NavLink
+                        key={portfolio.slug}
+                        to={`/portfolios/${portfolio.slug}`}
+                        className={({ isActive }) => {
+                            return ("portfolio-links__item " +
+                                (isActive ? "portfolio-links__item_active" : ""));
+                        }}
+                    >
+                        <div>{portfolio.title}</div>
+
+                    </NavLink>
+                    <ul className="project-links">
+                        {portfolio.projects.map(project => (
+                            <li>
+                                <NavLink className={({ isActive }) => {
+                                    return ("project-links__item " +
+                                        (isActive ? "project-links__item_active" : ""));
+                                }} key={project.slug} to={`/portfolios/${project.portfolioSlug}/projects/${project.slug}`}>{project.title}</NavLink>
+                            </li>
+                        ))}
+                    </ul>
+                </li>
+            ))}
+        </ul>
+    );
+}
+
 function PortfoliosPage() {
     const {
         sendRequest,
@@ -19,24 +51,7 @@ function PortfoliosPage() {
         sendRequest();
     }, []);
 
-    function PortfolioLinks(portfolios) {
-        return (
-            <div className="portfolios-page__content-aside-portfolio-list">
-                {portfolios.map(portfolio => (
-                    <NavLink
-                        key={portfolio.slug}
-                        to={`/portfolios/${portfolio.slug}`}
-                        className={({ isActive }) => {
-                            return ("portfolios-page__content-aside-portfolio-list-item " +
-                                (isActive ? "portfolios-page__content-aside-portfolio-list-item_active" : ""));
-                        }}
-                    >
-                        {portfolio.title}
-                    </NavLink>
-                ))}
-            </div>
-        );
-    }
+
 
     return (
         <div className="portfolios-page">

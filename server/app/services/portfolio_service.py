@@ -23,6 +23,19 @@ async def get_portfolios(session: AsyncSession) -> Sequence[models.Portfolio]:
     ).all()
 
 
+async def get_project(
+    session: AsyncSession, portfolio_slug: str, slug: str
+) -> models.Project:
+    project = await session.scalar(
+        select(models.Project).where(
+            models.Project.portfolio_slug == portfolio_slug, models.Project.slug == slug
+        )
+    )
+    if project is None:
+        raise exceptions.ProjectNotFoundError
+    return project
+
+
 async def create_portfolio(
     session: AsyncSession,
     request: Request,
@@ -112,13 +125,7 @@ async def get_description_as_html(session: AsyncSession, slug: str) -> str:
 async def get_project_description_as_html(
     session: AsyncSession, portfolio_slug: str, slug: str
 ) -> str:
-    project = await session.scalar(
-        select(models.Project).where(
-            models.Project.portfolio_slug == portfolio_slug, models.Project.slug == slug
-        )
-    )
-    if project is None:
-        raise exceptions.ProjectNotFoundError
+    project = await get_project(session, portfolio_slug, slug)
     path = await media_files_service.get_media_file_path(
         project.markdown_description_filename
     )
