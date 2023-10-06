@@ -38,8 +38,8 @@ function SliderSection({ items }) {
             </div>
             <div className="slider">
                 <div ref={sliderItems} className="slider__items">
-                    {items.map(item => (
-                        <div className="slider__item">
+                    {items.map((item, index) => (
+                        <div key={index} className="slider__item">
                             <div className="slider__img" style={{ backgroundImage: `url(${item.imageUrl})` }} />
                         </div>
                     ))}

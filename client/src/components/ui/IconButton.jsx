@@ -1,9 +1,9 @@
 import "./IconButton.scss";
 
 
-function IconButton({ children, iconType, className = "", ...props }) {
+function IconButton({ children, className = "", ...props }) {
     return (
-        <button {...props} className={"icon-button " + className}><span className={"material-icons" + (iconType ? "-" + iconType : "")}>{children}</span></button>
+        <button {...props} className={"icon-button " + className}><span className="material-icons">{children}</span></button>
     );
 }
 

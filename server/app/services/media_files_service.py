@@ -20,7 +20,7 @@ async def upload(
         raise exceptions.UnsupportedExtensionError()
 
     filename = str(uuid.uuid4()) + (extension or "")
-    file_path = config.settings.media_path.resolve() / filename
+    file_path = config.settings.media_directory.resolve() / filename
     file_path.parent.mkdir(parents=True, exist_ok=True)
     async with await anyio.open_file(file_path, "xb") as media_file:
         await media_file.write(await file.read())
@@ -29,7 +29,7 @@ async def upload(
 
 
 async def get_media_file_path(media_file_path: str) -> pathlib.Path:
-    file_path = config.settings.media_path / media_file_path
+    file_path = config.settings.media_directory / media_file_path
     if not file_path.exists():
         raise exceptions.MediaFileNotFoundError
     return file_path

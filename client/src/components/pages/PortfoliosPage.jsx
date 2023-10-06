@@ -4,7 +4,7 @@ import { getPortfolios } from "../../api";
 import { NavLink, Outlet } from "react-router-dom";
 import Container from "../Container";
 import "./PortfoliosPage.scss";
-import useBreadcrumbs from "use-react-router-breadcrumbs"
+import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs"
 import router from "../../router";
 import Link from "../ui/Link";
 
@@ -12,9 +12,9 @@ function PortfolioLinks(portfolios) {
     return (
         <ul className="portfolio-links">
             {portfolios.map(portfolio => (
-                <li>
+                <li key={portfolio.slug}>
                     <NavLink
-                        key={portfolio.slug}
+
                         to={`/portfolios/${portfolio.slug}`}
                         className={({ isActive }) => {
                             return ("portfolio-links__item " +
@@ -22,15 +22,14 @@ function PortfolioLinks(portfolios) {
                         }}
                     >
                         <div>{portfolio.title}</div>
-
                     </NavLink>
                     <ul className="project-links">
                         {portfolio.projects.map(project => (
-                            <li>
+                            <li key={project.slug}>
                                 <NavLink className={({ isActive }) => {
                                     return ("project-links__item " +
                                         (isActive ? "project-links__item_active" : ""));
-                                }} key={project.slug} to={`/portfolios/${project.portfolioSlug}/projects/${project.slug}`}>{project.title}</NavLink>
+                                }} to={`/portfolios/${project.portfolioSlug}/projects/${project.slug}`}>{project.title}</NavLink>
                             </li>
                         ))}
                     </ul>
@@ -43,9 +42,9 @@ function PortfolioLinks(portfolios) {
 function PortfoliosPage() {
     const {
         sendRequest,
-        LoadedPortfolioLinks
+        loadedComponents
     } = useRequest(getPortfolios, PortfolioLinks);
-    const breadcrumbs = useBreadcrumbs(router.routes);
+    const breadcrumbs = useReactRouterBreadcrumbs(router.routes);
 
     useEffect(() => {
         sendRequest();
@@ -57,12 +56,12 @@ function PortfoliosPage() {
         <div className="portfolios-page">
             <Container>
                 <div className="portfolios-page__breadcrumps">
-                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <>{index !== breadcrumbs.length - 1 ? <><Link to={match} className="portfolios-page__breadcrumps-item" key={key}>{breadcrumb}</Link><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last" key={key}>{breadcrumb}</span>}</>)}
+                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <div key={key}>{index !== breadcrumbs.length - 1 ? <><Link to={match} className="portfolios-page__breadcrumps-item">{breadcrumb}</Link><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last">{breadcrumb}</span>}</div>)}
                 </div>
                 <hr />
                 <div className="portfolios-page__content">
                     <aside className="portfolios-page__content-aside">
-                        <LoadedPortfolioLinks />
+                        {loadedComponents[PortfolioLinks]()}
                     </aside>
                     <div className="portfolios-page__content-portfolio">
                         <Outlet />

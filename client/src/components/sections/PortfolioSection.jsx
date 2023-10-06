@@ -15,7 +15,7 @@ function PortfolioSection() {
         ));
     }
 
-    const { sendRequest, LoadedPortfolios } = useRequest(getPortfolios, Portfolios);
+    const { sendRequest, loadedComponents } = useRequest(getPortfolios, Portfolios);
 
     useEffect(() => {
         sendRequest();
@@ -24,7 +24,7 @@ function PortfolioSection() {
     return (
         <SectionWithHeader title="Наш портфолио">
             <div className="portfolios">
-                <LoadedPortfolios />
+                <>{loadedComponents[Portfolios]()}</>
             </div>
         </SectionWithHeader>
     );

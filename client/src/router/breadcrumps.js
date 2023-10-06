@@ -3,7 +3,7 @@ import { getPortfolio, getProject } from "../api";
 import { useRequest } from "../hooks";
 
 export function PortfolioBreadcrumb({ match }) {
-    const { sendRequest, LoadedPortfolio } = useRequest(getPortfolio, Portfolio);
+    const { sendRequest, loadedComponents } = useRequest(getPortfolio, Portfolio);
 
     function Portfolio(portfolio) {
         return (
@@ -15,11 +15,11 @@ export function PortfolioBreadcrumb({ match }) {
         sendRequest(match.params.portfolioSlug);
     }, []);
 
-    return <LoadedPortfolio />;
+    return <>{loadedComponents[Portfolio]()}</>;
 }
 
 export function ProjectBreadcrumb({ match }) {
-    const { sendRequest, LoadedProject } = useRequest(getProject, Project);
+    const { sendRequest, loadedComponents } = useRequest(getProject, Project);
 
     useEffect(() => {
         sendRequest(match.params.portfolioSlug, match.params.projectSlug);
@@ -31,5 +31,5 @@ export function ProjectBreadcrumb({ match }) {
         )
     }
 
-    return <LoadedProject />;
+    return <>{loadedComponents[Project]()}</>;
 }

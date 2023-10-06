@@ -2,9 +2,9 @@ import { NavLink } from "react-router-dom";
 import "./Link.scss";
 
 
-function Link({ children, className, ...props }) {
+function Link({ children, className = "", ...props }) {
     return (
-        <NavLink {...props} className={({ isActive }) => (isActive ? "link link_active" : "link") + (className ? (" " + className) : "")}>
+        <NavLink {...props} className={({ isActive }) => (isActive ? "link link_active" : "link") + className}>
             {children}
         </NavLink>
     );

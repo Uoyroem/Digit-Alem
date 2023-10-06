@@ -3,7 +3,7 @@ import { useRequest } from "../hooks";
 
 
 function HTMLFromURL({ url }) {
-    const { sendRequest, LoadedHTML } = useRequest(async () => {
+    const { sendRequest, loadedComponents } = useRequest(async () => {
         const response = await fetch(url);
         const html = await response.text();
         return { data: html };
@@ -17,7 +17,7 @@ function HTMLFromURL({ url }) {
         sendRequest();
     }, []);
 
-    return <LoadedHTML />;
+    return <>{loadedComponents[HTML]()}</>;
 }
 
 

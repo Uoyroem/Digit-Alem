@@ -22,7 +22,7 @@ function PortfolioDetailPage() {
     }
 
 
-    const { sendRequest, LoadedPortfolio } = useRequest(getPortfolio, Portfolio);
+    const { sendRequest, loadedComponents } = useRequest(getPortfolio, Portfolio);
 
 
     useEffect(() => {
@@ -30,7 +30,7 @@ function PortfolioDetailPage() {
     }, [portfolioSlug]);
     return (
         <div className="portfolio-detail-page">
-            <LoadedPortfolio />
+            {loadedComponents[Portfolio]()}
         </div>
     );
 }

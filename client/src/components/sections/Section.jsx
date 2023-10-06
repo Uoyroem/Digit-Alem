@@ -2,15 +2,15 @@ import React from "react";
 import "./Section.scss";
 import Container from "../Container";
 
-export function Section({children, className = "", ...props}) {
+export function Section({ children, className = "", ...props }) {
     return (
-        <section className={`section ${className}`}>
+        <section {...props} className={`section ${className}`}>
             {children}
         </section>
     );
 }
 
-export function SectionWithHeader({title, headerClassName = "", titleClassName = "", children, ...props}) {
+export function SectionWithHeader({ title, headerClassName = "", titleClassName = "", children, ...props }) {
     return (
         <Section {...props}>
             <Container>

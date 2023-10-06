@@ -2,9 +2,9 @@ import React from "react";
 import "./Input.scss";
 
 
-function Input({className, ...props}) {
+function Input({ className = "", ...props }) {
     return (
-        <input {...props} className={`input ${className}`}/>
+        <input {...props} className={`input ${className}`} />
     );
 }
 

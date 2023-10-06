@@ -7,7 +7,7 @@ import { useEffect } from "react";
 function ProjectPage() {
     const params = useParams();
 
-    const { sendRequest, LoadedProject } = useRequest(getProject, Project)
+    const { sendRequest, loadedComponents } = useRequest(getProject, Project)
 
     useEffect(() => {
         sendRequest(params.portfolioSlug, params.projectSlug);
@@ -17,7 +17,7 @@ function ProjectPage() {
         return <HTMLFromURL url={project.htmlDescriptionUrl} />
     }
 
-    return <LoadedProject />
+    return <>{loadedComponents[Project]()}</>;
 }
 
 export default ProjectPage;

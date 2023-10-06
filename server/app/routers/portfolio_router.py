@@ -9,12 +9,12 @@ from .. import schemas, dependecies, services
 router = APIRouter(prefix="/portfolios")
 
 
-@router.get("/", response_model=list[schemas.Portfolio])
+@router.get("", response_model=list[schemas.Portfolio])
 async def get_portfolios(session: dependecies.Session) -> Any:
     return await services.portfolio_service.get_portfolios(session)
 
 
-@router.post("/", status_code=status.HTTP_201_CREATED)
+@router.post("", status_code=status.HTTP_201_CREATED)
 async def create_portfolio(
     session: dependecies.Session,
     request: Request,

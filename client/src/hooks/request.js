@@ -1,4 +1,4 @@
-import {useState} from "react";
+import { useState } from "react";
 import spinner from "../assets/spinner.svg";
 import "./OnResponse.scss";
 
@@ -7,7 +7,7 @@ export function useRequest(request, ...components) {
     const [loaded, setLoaded] = useState(false);
     const [error, setError] = useState(false);
     const [data, setData] = useState(null);
-    const transformedComponents = {};
+    const loadedComponents = {};
 
     function sendRequest() {
         setLoaded(false);
@@ -24,15 +24,17 @@ export function useRequest(request, ...components) {
     }
 
     for (const component of components) {
-        transformedComponents[`Loaded` + component.name] = () => (
-            <>
-                {error ? <div className="error">Произошло ошибка при загрузке данных см.
-                    консоль</div> : loaded ? <>{component(data)}</> :
-                    <img className="loading" src={spinner} alt=""/>}
-            </>
-        );
+        loadedComponents[component] = function () {
+            return (
+                <>
+                    {error ? <div className="error">Произошло ошибка при загрузке данных см.
+                        консоль</div> : loaded ? <>{component(data)}</> :
+                        <img className="loading" src={spinner} alt="" />}
+                </>
+            );
+        };
     }
 
 
-    return {sendRequest, ...transformedComponents};
+    return { sendRequest, loadedComponents };
 }

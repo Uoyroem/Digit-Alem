@@ -4,13 +4,13 @@ import logo from "../assets/logo.png";
 import { Link } from "react-router-dom";
 
 
-function Header({ className, ...props }) {
+function Header() {
 
     return (
-        <header {...props} className={"header " + (className || "")}>
+        <header className="header">
             <Container>
                 <div className="header__inner">
-                    <Link href={"/"}>
+                    <Link to={"/"}>
                         <img className="header__logo" src={logo} alt="" />
                     </Link>
                     <nav className="nav">
