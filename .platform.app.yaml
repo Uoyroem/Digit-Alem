@@ -1,0 +1,22 @@
+# The name of this app. Must be unique within a project.
+name: app
+
+type: 'python:3.11'
+
+mounts:
+  'web/uploads':
+    source: local
+    source_path: uploads
+
+
+relationships:
+    postgresdatabase: 'dbpostgres:postgresql'
+
+hooks:
+  build: |
+    cd server
+    pip install -r requirements.txt
+
+web:
+  commands: 
+    start: "uvicorn server.app.main:app"
