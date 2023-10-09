@@ -3,6 +3,8 @@ name: app
 
 type: 'python:3.11'
 
+disk: 1024
+
 mounts:
   'web/uploads':
     source: local
@@ -19,4 +21,4 @@ hooks:
 
 web:
   commands: 
-    start: "uvicorn server.app.main:app"
+    start: "uvicorn server.app.main:app --host 0.0.0.0"
