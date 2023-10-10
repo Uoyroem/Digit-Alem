@@ -8,8 +8,23 @@ server:
 
   web:
     commands:
-      start:
+      start: uvicorn app.main:app
 
 
   source:
     root: "server"
+
+client:
+  type: nodejs:18
+  dist: 256
+
+  hooks:
+    build: |
+      npm install 
+      npm run build
+
+  web:
+    locations:
+      "/":
+        root: "build"
+        passthru: '/index.html'
