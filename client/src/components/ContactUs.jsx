@@ -1,19 +1,19 @@
 import React from "react";
-import Input from "./ui/Input";
-import Button from "./ui/Button";
-import "./ContactUs.scss";
+import {Button, Stack, TextField} from "@mui/material";
+
 
 function ContactUs() {
     return (
-        <div className="contact">
-            <h4>Связаться с нами</h4>
-            <form method="post">
-                <Input className="contact__input" placeholder="Имя" required/>
-                <Input className="contact__input" placeholder="Почта" type="email" required/>
-                <Input className="contact__input" placeholder="Телефон" required/>
-                <Button>Отправить</Button>
-            </form>
-        </div>
+        <form>
+            <Stack spacing={2} maxWidth={470} margin="auto">
+                <Stack direction="row" justifyContent="space-between">
+                    <TextField required label="Введите ваше имя"/>
+                    <TextField required type="email" label="Введите ваш email"/>
+                </Stack>
+                <TextField required label="Введите сообщение"/>
+                <Button variant="contained">Отправить</Button>
+            </Stack>
+        </form>
     );
 }
 

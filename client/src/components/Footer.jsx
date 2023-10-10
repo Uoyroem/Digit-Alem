@@ -1,12 +1,14 @@
 import "./Footer.scss";
-import ContactUs from "./ContactUs";
-import Container from "./Container";
+import {Container} from "@mui/material";
+
 
 function Footer() {
     return (
         <footer className="footer">
             <Container>
-                <ContactUs />
+                <div>
+                    © 2023 Все права защищены.
+                </div>
             </Container>
         </footer>
     );

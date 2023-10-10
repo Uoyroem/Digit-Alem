@@ -3,7 +3,7 @@ import {SectionWithHeader} from "./Section";
 
 function AboutSection() {
     return (
-        <SectionWithHeader title="О компаний" titleClassName="about-section__title">
+        <SectionWithHeader id="about-section" title="О компаний" titleClassName="about-section__title">
             <div className="about-section__content">
                 <p className="about-section__content-text">
                     Lorem ipsum dolor sit amet consectetur adipisicing elit.

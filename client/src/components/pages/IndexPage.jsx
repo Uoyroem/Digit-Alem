@@ -3,6 +3,7 @@ import AboutSection from "../sections/AboutSection";
 import NewsSection from "../sections/NewsSection";
 import PortfolioSection from "../sections/PortfolioSection";
 import { useEffect, useState } from "react";
+import ContactUsSection from "../sections/ContactUsSection";
 
 
 function IndexPage() {
@@ -36,6 +37,7 @@ function IndexPage() {
             <AboutSection />
             <NewsSection />
             <PortfolioSection />
+            <ContactUsSection/>
         </>
     );
 }

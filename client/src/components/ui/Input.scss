@@ -5,9 +5,15 @@
     box-shadow: var(--box-shadow);
     padding: 0.4em 1em;
     border-radius: var(--border-radius);
-}
 
-.input::placeholder {
-    color: inherit;
-    font: inherit;
+    &::placeholder {
+        color: inherit;
+        font: inherit;
+    }
+
+    &:focus {
+        &::placeholder {
+            color: white;
+        }
+    }
 }

@@ -1,41 +1,58 @@
-import React, { useEffect } from "react";
-import { useRequest } from "../../hooks";
-import { getPortfolios } from "../../api";
-import { NavLink, Outlet } from "react-router-dom";
-import Container from "../Container";
+import React, {useEffect} from "react";
+import {useRequest} from "../../hooks";
+import {getPortfolios} from "../../api";
+import {NavLink, Outlet} from "react-router-dom";
 import "./PortfoliosPage.scss";
-import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs"
+import useReactRouterBreadcrumbs from "use-react-router-breadcrumbs";
 import router from "../../router";
-import Link from "../ui/Link";
+import Link from "@mui/material/Link";
+import {
+    Accordion,
+    AccordionDetails,
+    AccordionSummary,
+    Breadcrumbs,
+    Container,
+    Divider,
+    Grid,
+    Stack
+} from "@mui/material";
 
 function PortfolioLinks(portfolios) {
     return (
-        <ul className="portfolio-links">
+        <Stack>
             {portfolios.map(portfolio => (
-                <li key={portfolio.slug}>
-                    <NavLink
+                <Accordion key={portfolio.slug}>
+                    <AccordionSummary>
+                        <Link
+                            component={NavLink}
+                            to={`/portfolios/${portfolio.slug}`}
+                            variant="button"
+                            underline="hover"
+                            color="inherit"
+                        >
+                            <div>{portfolio.title}</div>
+                        </Link>
+                    </AccordionSummary>
 
-                        to={`/portfolios/${portfolio.slug}`}
-                        className={({ isActive }) => {
-                            return ("portfolio-links__item " +
-                                (isActive ? "portfolio-links__item_active" : ""));
-                        }}
-                    >
-                        <div>{portfolio.title}</div>
-                    </NavLink>
-                    <ul className="project-links">
-                        {portfolio.projects.map(project => (
-                            <li key={project.slug}>
-                                <NavLink className={({ isActive }) => {
-                                    return ("project-links__item " +
-                                        (isActive ? "project-links__item_active" : ""));
-                                }} to={`/portfolios/${project.portfolioSlug}/projects/${project.slug}`}>{project.title}</NavLink>
-                            </li>
-                        ))}
-                    </ul>
-                </li>
+                    <AccordionDetails>
+                        <Stack spacing={2}>
+                            {portfolio.projects.map(project => (
+                                <Link
+                                    component={NavLink}
+                                    key={project.slug}
+                                    variant="button"
+                                    color="inherit"
+                                    underline="hover"
+                                    to={`/portfolios/${project.portfolioSlug}/projects/${project.slug}`}
+                                >
+                                    {project.title}
+                                </Link>
+                            ))}
+                        </Stack>
+                    </AccordionDetails>
+                </Accordion>
             ))}
-        </ul>
+        </Stack>
     );
 }
 
@@ -51,24 +68,33 @@ function PortfoliosPage() {
     }, []);
 
 
-
     return (
-        <div className="portfolios-page">
-            <Container>
-                <div className="portfolios-page__breadcrumps">
-                    {breadcrumbs.map(({ key, breadcrumb, match }, index) => <div key={key}>{index !== breadcrumbs.length - 1 ? <><Link to={match} className="portfolios-page__breadcrumps-item">{breadcrumb}</Link><span className="portfolios-page__breadcrumps-divider">/</span></> : <span className="portfolios-page__breadcrumps-item last">{breadcrumb}</span>}</div>)}
-                </div>
-                <hr />
-                <div className="portfolios-page__content">
-                    <aside className="portfolios-page__content-aside">
+        <Container>
+            <Grid container spacing={2}>
+                <Grid item xs={12}>
+                    <Breadcrumbs aria-label="breadcrumb">
+                        {breadcrumbs.map(({key, breadcrumb, match}) => (
+                            <Link underline="hover" color="inherit" to={match} component={NavLink} key={key}>
+                                {breadcrumb}
+                            </Link>)
+                        )}
+                    </Breadcrumbs>
+                </Grid>
+
+
+                <Divider light/>
+                <Grid item xs={4}>
+                    <aside>
                         {loadedComponents[PortfolioLinks]()}
                     </aside>
-                    <div className="portfolios-page__content-portfolio">
-                        <Outlet />
-                    </div>
-                </div>
-            </Container>
-        </div>
+                </Grid>
+                <Grid item xs={8}>
+                    <Outlet/>
+                </Grid>
+
+            </Grid>
+        </Container>
+
     );
 }
 

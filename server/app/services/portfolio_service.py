@@ -1,17 +1,16 @@
-import markdown
 from collections.abc import Sequence
 
 import anyio
-from slugify import slugify
+import markdown
 from fastapi import UploadFile, Request
-from sqlalchemy import select
-from sqlalchemy.orm import selectinload
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import IntegrityError
 from psycopg import errors
+from slugify import slugify
+from sqlalchemy import select
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import selectinload
 
 from . import media_files_service, exceptions
-
 from .. import models
 
 
@@ -24,7 +23,7 @@ async def get_portfolios(session: AsyncSession) -> Sequence[models.Portfolio]:
 
 
 async def get_project(
-    session: AsyncSession, portfolio_slug: str, slug: str
+        session: AsyncSession, portfolio_slug: str, slug: str
 ) -> models.Project:
     project = await session.scalar(
         select(models.Project).where(
@@ -37,11 +36,11 @@ async def get_project(
 
 
 async def create_portfolio(
-    session: AsyncSession,
-    request: Request,
-    title: str,
-    markdown_description: UploadFile,
-    image: UploadFile,
+        session: AsyncSession,
+        request: Request,
+        title: str,
+        markdown_description: UploadFile,
+        image: UploadFile,
 ) -> models.Portfolio:
     markdown_description_filename = await media_files_service.upload(
         request, markdown_description, {".md"}
@@ -66,11 +65,11 @@ async def create_portfolio(
 
 
 async def create_project(
-    session: AsyncSession,
-    request: Request,
-    portfolio_slug: str,
-    title: str,
-    markdown_description: UploadFile,
+        session: AsyncSession,
+        request: Request,
+        portfolio_slug: str,
+        title: str,
+        markdown_description: UploadFile,
 ) -> models.Project:
     markdown_description_filename = await media_files_service.upload(
         request, markdown_description, {".md"}
@@ -118,18 +117,18 @@ async def get_description_as_html(session: AsyncSession, slug: str) -> str:
         portfolio.markdown_description_filename
     )
 
-    async with await anyio.open_file(path) as file:
+    async with await anyio.open_file(path, encoding="utf-8") as file:
         return markdown.markdown(await file.read())
 
 
 async def get_project_description_as_html(
-    session: AsyncSession, portfolio_slug: str, slug: str
+        session: AsyncSession, portfolio_slug: str, slug: str
 ) -> str:
     project = await get_project(session, portfolio_slug, slug)
     path = await media_files_service.get_media_file_path(
         project.markdown_description_filename
     )
-    async with await anyio.open_file(path) as file:
+    async with await anyio.open_file(path, encoding="utf-8") as file:
         return markdown.markdown(await file.read())
 
 

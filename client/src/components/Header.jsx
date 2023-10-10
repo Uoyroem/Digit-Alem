@@ -1,7 +1,7 @@
 import "./Header.scss";
-import Container from "./Container";
 import logo from "../assets/logo.png";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {Container} from "@mui/material";
 
 
 function Header() {
@@ -11,7 +11,7 @@ function Header() {
             <Container>
                 <div className="header__inner">
                     <Link to={"/"}>
-                        <img className="header__logo" src={logo} alt="" />
+                        <img className="header__logo" src={logo} alt=""/>
                     </Link>
                     <nav className="nav">
                         <a href="#about-section" className="nav__item">О компаний</a>

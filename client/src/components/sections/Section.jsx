@@ -1,8 +1,8 @@
 import React from "react";
 import "./Section.scss";
-import Container from "../Container";
+import {Container} from "@mui/material";
 
-export function Section({ children, className = "", ...props }) {
+export function Section({children, className = "", ...props}) {
     return (
         <section {...props} className={`section ${className}`}>
             {children}
@@ -10,7 +10,7 @@ export function Section({ children, className = "", ...props }) {
     );
 }
 
-export function SectionWithHeader({ title, headerClassName = "", titleClassName = "", children, ...props }) {
+export function SectionWithHeader({title, headerClassName = "", titleClassName = "", children, ...props}) {
     return (
         <Section {...props}>
             <Container>

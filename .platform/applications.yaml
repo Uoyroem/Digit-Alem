@@ -1,0 +1,15 @@
+server:
+  type: python:3.11
+  disk: 256
+
+  hooks:
+    build: |
+      pip install -r requirements.txt
+
+  web:
+    commands:
+      start:
+
+
+  source:
+    root: "server"
